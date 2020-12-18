@@ -1,0 +1,32 @@
+{
+  "name": "web-protocol-electron-socket-server",
+  "version": "1.0.12",
+  "main": "main.js",
+  "license": "MIT",
+  "build": {
+    "appId": "du-hello-electron-builder",
+    "mac": {
+      "category": "du.app.category.type"
+    },
+    "protocols": {
+      "name": "du-electron-socket-protocol",
+      "schemes": [
+        "du-web-protocol-electron-socket-server"
+      ]
+    }
+  },
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^11.1.0",
+    "electron-builder": "^22.9.1"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "os-utils": "^0.0.14",
+    "socket.io": "^3.0.4"
+  }
+}

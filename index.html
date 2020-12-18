@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>web-protocol-electron-socket-server</title>
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+</head>
+<body style="background: white;">
+<h1>web-protocol-electron-socket-server</h1>
+<p>
+  We are using node <script>document.write(process.versions.node)</script>,
+  Chrome <script>document.write(process.versions.chrome)</script>,
+  and Electron <script>document.write(process.versions.electron)</script>.
+</p>
+
+<div id="du-appVersion-output">this text to be replaced by app version</div>
+<div id="du-link-output">this text to be replaced with link value</div>
+
+<p>cpu stats:</p>
+<div class="box">
+  <span class="label">CPU (%)</span>
+  <span id="cpu">-</span>
+</div>
+<div class="box">
+  <span class="label">Free Mem (%)</span>
+  <span id="mem">-</span>
+</div>
+<div class="box">
+  <span class="label">Total Mem (GB)</span>
+  <span id="total-mem">-</span>
+</div>
+
+<script>
+  const electron = require('electron');
+  const ipcRenderer = electron.ipcRenderer;
+  ipcRenderer.on('du-appVersion', (event, data) => {
+    console.log('du-appVersion: ', data);
+    document.getElementById("du-appVersion-output").innerHTML = data;
+  });
+  ipcRenderer.on('du-link', (event, data) => {
+    console.log('du-link: ', data);
+    document.getElementById("du-link-output").innerHTML = data;
+  });
+
+  ipcRenderer.on('cpu',(event,data) => {
+    document.getElementById('cpu').innerHTML = data.toFixed(2);
+  });
+  ipcRenderer.on('mem',(event,data) => {
+    document.getElementById('mem').innerHTML = data.toFixed(2);
+  });
+  ipcRenderer.on('total-mem',(event,data) => {
+    document.getElementById('total-mem').innerHTML = data.toFixed(2);
+  });
+</script>
+
+</body>
+</html>
